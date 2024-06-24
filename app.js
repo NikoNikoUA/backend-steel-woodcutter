@@ -5,6 +5,9 @@ import dotenv from "dotenv";
 
 import easterRouter from "./routes/api/easter-router.js";
 import miscellaneousRouter from "./routes/api/miscellaneous-router.js";
+import christmasRouter from "./routes/api/christmas-router.js";
+import valentineRouter from "./routes/api/valentine-router.js";
+import bookRouter from "./routes/api/book-router.js";
 
 dotenv.config();
 
@@ -18,6 +21,12 @@ app.use(express.json());
 app.use("/api/easter-products", easterRouter);
 
 app.use("/api/miscellaneous-products", miscellaneousRouter);
+
+app.use("/api/christmas-products", christmasRouter);
+
+app.use("/api/valentine-products", valentineRouter);
+
+app.use("/api/book-products", bookRouter);
 
 app.use((req, res) => {
   res.status(404).json({
