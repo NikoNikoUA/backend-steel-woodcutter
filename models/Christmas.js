@@ -7,8 +7,9 @@ const christmasSchema = new Schema({
   category: String,
   price: String,
   url: String,
-  dimensions: String,
+  dimensions: Array,
   description: String,
+  quantity: String,
 });
 
 christmasSchema.post("save", handleSaveError);

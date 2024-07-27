@@ -8,6 +8,7 @@ const bookSchema = new Schema({
   url: String,
   length: String,
   description: String,
+  quantity: String,
 });
 
 bookSchema.post("save", handleSaveError);

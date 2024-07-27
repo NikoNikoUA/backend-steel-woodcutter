@@ -7,8 +7,9 @@ const miscellaneousSchema = new Schema({
   category: String,
   price: String,
   url: String,
-  dimensions: String,
+  dimensions: Array,
   description: String,
+  quantity: String,
 });
 
 miscellaneousSchema.post("save", handleSaveError);

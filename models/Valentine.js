@@ -7,8 +7,9 @@ const valentineSchema = new Schema({
   category: String,
   price: String,
   url: String,
-  dimensions: String,
+  dimensions: Array,
   description: String,
+  quantity: String,
 });
 
 valentineSchema.post("save", handleSaveError);

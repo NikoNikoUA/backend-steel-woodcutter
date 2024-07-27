@@ -7,8 +7,9 @@ const easterSchema = new Schema({
   category: String,
   price: String,
   url: String,
-  dimensions: String,
+  dimensions: Array,
   description: String,
+  quantity: String,
 });
 
 easterSchema.post("save", handleSaveError);
