@@ -44,13 +44,34 @@ const login = async (req, res) => {
   };
 
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "23h" });
+  await User.findByIdAndUpdate(id, { token });
 
   res.json({
     token,
   });
 };
 
+const getCurrent = async (req, res) => {
+  const { username, email } = req.user;
+
+  res.json({
+    username,
+    email,
+  });
+};
+
+const logout = async (req, res) => {
+  const { _id } = req.user;
+  await User.findByIdAndDelete(_id, { token: "" });
+
+  res.json({
+    message: "Logged out successfully",
+  });
+};
+
 export default {
   register: decorators.ctrlWrapper(register),
   login: decorators.ctrlWrapper(login),
+  getCurrent: decorators.ctrlWrapper(getCurrent),
+  logout: decorators.ctrlWrapper(logout),
 };

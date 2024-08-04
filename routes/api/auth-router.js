@@ -24,4 +24,8 @@ authRouter.post(
   authController.login
 );
 
+authRouter.get("/current", middlewares.isAuthorized, authController.getCurrent);
+
+authRouter.post("/logout", middlewares.isAuthorized, authController.logout);
+
 export default authRouter;

@@ -3,11 +3,9 @@ import { addUpdateSettings, handleSaveError } from "./hook.js";
 
 const favoriteSchema = new Schema(
   {
-    productId: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      refPath: "productType", // Динамічний референс на основі productType
-    },
+    // _id: {
+    //   type: String,
+    // },
     productType: {
       type: String,
       enum: [
@@ -27,12 +25,24 @@ const favoriteSchema = new Schema(
     description: {
       type: String,
     },
+    ganre: {
+      type: String,
+    },
+    length: {
+      type: String,
+    },
+    quantity: {
+      type: String,
+    },
+    material: {
+      type: String,
+    },
     url: {
       type: String,
     },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "user",
       required: true,
     },
   },
