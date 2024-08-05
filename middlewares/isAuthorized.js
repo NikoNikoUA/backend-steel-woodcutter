@@ -5,8 +5,6 @@ import User from "../models/User.js";
 
 dotenv.config();
 
-// const { User } = model;
-
 const { JWT_SECRET } = process.env;
 
 const isAuthorized = async (req, res, next) => {

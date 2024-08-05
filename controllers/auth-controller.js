@@ -62,7 +62,7 @@ const getCurrent = async (req, res) => {
 
 const logout = async (req, res) => {
   const { _id } = req.user;
-  await User.findByIdAndDelete(_id, { token: "" });
+  await User.findByIdAndUpdate(_id, { token: "" });
 
   res.json({
     message: "Logged out successfully",
