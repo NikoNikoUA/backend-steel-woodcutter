@@ -28,4 +28,12 @@ authRouter.get("/current", middlewares.isAuthorized, authController.getCurrent);
 
 authRouter.post("/logout", middlewares.isAuthorized, authController.logout);
 
+// authRouter.put(
+//   "/users",
+//   middlewares.isAuthorized,
+//   middlewares.upload.single("avatar"),
+//   validateBody(userUpdateSchema),
+//   decorators.ctrlWrapper(authController.updateUser)
+// );
+
 export default authRouter;
