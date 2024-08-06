@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import fs from "fs/promises";
+import path from "path";
 
 import User from "../models/User.js";
 import helpers from "../helpers/index.js";
@@ -9,6 +11,7 @@ import decorators from "../decorators/index.js";
 dotenv.config();
 
 const { JWT_SECRET } = process.env;
+const avatarPath = path.resolve("public", "avatars");
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -69,9 +72,44 @@ const logout = async (req, res) => {
   });
 };
 
+const updateUser = async (req, res) => {
+  console.log(req.body);
+  try {
+    const { _id } = req.user;
+
+    if (req.body.password) {
+      const hashPassword = await bcrypt.hash(req.body.password, 10);
+      req.body.password = hashPassword;
+    }
+
+    if (req.file) {
+      const { path: oldPath, originalname } = req.file;
+      const ext = path.extname(originalname);
+      const newName = `sl_${Date.now()}${ext}`;
+      const newPath = path.join(avatarPath, newName);
+      await fs.rename(oldPath, newPath);
+      const avatar = path.join("avatars", newName);
+      req.body.avatar = avatar;
+    }
+
+    const result = await User.findByIdAndUpdate(_id, req.body, {
+      new: true,
+    });
+
+    res.json({
+      avatar: result.avatar,
+      username: result.username,
+      email: result.email,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export default {
   register: decorators.ctrlWrapper(register),
   login: decorators.ctrlWrapper(login),
   getCurrent: decorators.ctrlWrapper(getCurrent),
   logout: decorators.ctrlWrapper(logout),
+  updateUser: decorators.ctrlWrapper(updateUser),
 };

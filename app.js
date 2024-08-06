@@ -22,7 +22,7 @@ app.use("/images", express.static("images"));
 app.use(cors());
 app.use(logger(formatsLogger));
 app.use(express.json());
-// app.use(express.static("public"));
+app.use(express.static("public"));
 
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "build")));

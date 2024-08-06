@@ -6,7 +6,11 @@ import decorators from "../../decorators/index.js";
 
 import authController from "../../controllers/auth-controller.js";
 
-import { userRegistrationSchema, userLogInSchema } from "../../models/User.js";
+import {
+  userRegistrationSchema,
+  userLogInSchema,
+  userUpdateSchema,
+} from "../../models/User.js";
 
 const authRouter = express.Router();
 
@@ -28,12 +32,12 @@ authRouter.get("/current", middlewares.isAuthorized, authController.getCurrent);
 
 authRouter.post("/logout", middlewares.isAuthorized, authController.logout);
 
-// authRouter.put(
-//   "/users",
-//   middlewares.isAuthorized,
-//   middlewares.upload.single("avatar"),
-//   validateBody(userUpdateSchema),
-//   decorators.ctrlWrapper(authController.updateUser)
-// );
+authRouter.put(
+  "/users",
+  middlewares.isAuthorized,
+  middlewares.upload.single("avatar"),
+  decorators.validateBody(userUpdateSchema),
+  authController.updateUser
+);
 
 export default authRouter;
