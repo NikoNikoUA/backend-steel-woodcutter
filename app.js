@@ -13,6 +13,7 @@ import valentineRouter from "./routes/api/valentine-router.js";
 import bookRouter from "./routes/api/book-router.js";
 import authRouter from "./routes/api/auth-router.js";
 import favoritesRouter from "./routes/api/favorites-router.js";
+import feedbackRouter from "./routes/api/feedback-router.js";
 
 const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
@@ -40,6 +41,8 @@ app.use("/api/valentine-products", valentineRouter);
 app.use("/api/book-products", bookRouter);
 
 app.use("/api/favorites", favoritesRouter);
+
+app.use("api/feedback", feedbackRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
