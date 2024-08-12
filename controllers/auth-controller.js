@@ -31,7 +31,9 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+
   const user = await User.findOne({ email });
+
   if (!user) {
     throw helpers.HttpError(401, "Email or password is invalid");
   }
@@ -41,7 +43,7 @@ const login = async (req, res) => {
     throw helpers.HttpError(401, "Email or password is invalid");
   }
 
-  const { _id: id } = user;
+  const { _id: id, username: username } = user;
   const payload = {
     id,
   };
@@ -51,6 +53,7 @@ const login = async (req, res) => {
 
   res.json({
     token,
+    username,
   });
 };
 
@@ -73,7 +76,6 @@ const logout = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  console.log(req.body);
   try {
     const { _id } = req.user;
 
