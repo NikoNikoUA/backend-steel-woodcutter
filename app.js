@@ -20,12 +20,7 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use("/images", express.static("images"));
 
-app.use(
-  cors({
-    origin: "https://github.com/NikoNikoUA/steel-woodcutter",
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(logger(formatsLogger));
 app.use(express.json());
 app.use(express.static("public"));
